@@ -3,7 +3,7 @@ name: Deploy Urban Cool
 on:
   push:
     branches:
-      - main
+      - master
 
   workflow_dispatch:
 
