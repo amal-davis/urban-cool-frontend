@@ -1,0 +1,158 @@
+/* One self-contained card per service — no more separate full-bleed detail
+   band; this now IS the card (image, description, help-with list, and CTA
+   together), stacked with its siblings in ServicesPage.css's
+   .services-overview__list. */
+.service-card-detail {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.service-card-detail__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+/* Alternation happens via order, not by changing which element comes first
+   in the DOM — so the mobile breakpoint below can force a single,
+   consistent Image-then-Content order for every card regardless of which
+   side each one uses on desktop. */
+.service-card-detail__media {
+  order: 1;
+}
+.service-card-detail__content {
+  order: 2;
+}
+.service-card-detail__grid--reverse .service-card-detail__media {
+  order: 2;
+}
+.service-card-detail__grid--reverse .service-card-detail__content {
+  order: 1;
+}
+
+.service-card-detail__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.service-card-detail__icon {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  color: var(--color-primary);
+}
+
+/* Real photo (Service.imageUrl — see data/services.ts), when set, instead
+   of the Icon illustration above. Keeps the same padded surface-tinted
+   frame the icon sits in, so swapping between the two doesn't reshuffle
+   the card's layout. */
+.service-card-detail__photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.service-card-detail__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.service-card-detail__heading {
+  font-size: var(--text-headline-size);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.service-card-detail__intro {
+  font-size: var(--text-body-size);
+  line-height: 1.55;
+  color: var(--color-muted);
+  max-width: 48ch;
+  margin: 0;
+}
+
+.service-card-detail__help-heading {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: var(--space-sm) 0 0;
+}
+
+.service-card-detail__help-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xs) var(--space-lg);
+  width: 100%;
+}
+.service-card-detail__help-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  font-size: var(--text-body-size);
+  color: var(--color-ink);
+}
+.service-card-detail__help-list svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--color-success);
+}
+
+.service-card-detail .btn {
+  margin-top: var(--space-sm);
+}
+
+@media (max-width: 900px) {
+  .service-card-detail {
+    padding: var(--space-lg);
+  }
+  .service-card-detail__grid,
+  .service-card-detail__grid--reverse {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  /* Force Image, then Content on every card, overriding the reverse
+     modifier — the requirement is a consistent stacked order on mobile,
+     not a preserved alternation. */
+  .service-card-detail__media,
+  .service-card-detail__grid--reverse .service-card-detail__media {
+    order: 1;
+  }
+  .service-card-detail__content,
+  .service-card-detail__grid--reverse .service-card-detail__content {
+    order: 2;
+  }
+  .service-card-detail__help-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-card-detail {
+    padding: var(--space-md);
+  }
+  .service-card-detail__media {
+    padding: var(--space-lg);
+  }
+  .service-card-detail__icon {
+    max-width: 180px;
+  }
+}

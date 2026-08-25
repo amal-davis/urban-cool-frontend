@@ -1,0 +1,93 @@
+/* Clean, understated background treatment per spec ("no excessive
+   gradients/shadows") — a Panel-step surface tint, same flat language as
+   every other resting card in this system (DESIGN.md's Flat-by-Default
+   Rule), not a hero banner. */
+.profile-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xs);
+  padding: var(--space-xl) var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+
+.profile-summary__avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: var(--color-primary-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+  /* A thin light ring lifts the avatar off the surface tint without
+     resorting to a shadow — flat, per the same rule as the card itself. */
+  outline: 3px solid var(--color-bg);
+}
+
+.profile-summary__avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-summary__avatar-initials {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #fff;
+}
+
+.profile-summary__name {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-title-size);
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.profile-summary__phone {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-body-size);
+  color: var(--color-muted);
+  margin: 0 0 var(--space-md);
+}
+
+/* Same "pair color with a label" idiom DESIGN.md's No-Gray-Status Rule
+   asks for on booking status — a verified mark that's only a green tick
+   with no text would fail the same test. */
+.profile-summary__verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-success);
+  font-size: var(--text-label-size);
+  font-weight: 600;
+}
+.profile-summary__verified svg {
+  width: 15px;
+  height: 15px;
+}
+
+.profile-summary__edit {
+  gap: var(--space-xs);
+}
+.profile-summary__edit svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 480px) {
+  .profile-summary {
+    padding: var(--space-lg) var(--space-md);
+  }
+  .profile-summary__avatar {
+    width: 80px;
+    height: 80px;
+  }
+}

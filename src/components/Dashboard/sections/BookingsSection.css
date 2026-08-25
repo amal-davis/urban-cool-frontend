@@ -1,0 +1,87 @@
+/* Horizontally scrollable on its own — this is the "wide content gets its
+   own overflow-x:auto container" case, not the page body scrolling. */
+.booking-filters {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  scrollbar-width: none;
+}
+.booking-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.booking-filter {
+  flex-shrink: 0;
+  padding: 0.5rem var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+.booking-filter:hover {
+  border-color: var(--color-primary-deep);
+  color: var(--color-ink);
+}
+.booking-filter:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+}
+.booking-filter.is-active {
+  background: var(--color-primary-deep);
+  border-color: var(--color-primary-deep);
+  color: #fff;
+}
+
+.booking-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+
+.booking-detail__list {
+  width: 100%;
+  margin: 0;
+}
+.booking-detail__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: var(--space-sm);
+}
+.booking-detail__row + .booking-detail__row {
+  border-top: 1px solid var(--color-border);
+}
+.booking-detail__row dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-muted);
+}
+.booking-detail__row dt svg {
+  width: 16px;
+  height: 16px;
+}
+.booking-detail__row dd {
+  margin: 0;
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-ink);
+  text-align: right;
+}

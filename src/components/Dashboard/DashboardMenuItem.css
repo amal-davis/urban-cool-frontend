@@ -1,0 +1,82 @@
+/* A polished app-style row, not a generic browser button — full-width flat
+   button, no visible border of its own; separation between rows comes from
+   DashboardMenu.css's dividers, per DESIGN.md's Flat-by-Default Rule (no
+   shadow/border "for polish" on resting content). */
+.dashboard-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  border-radius: var(--radius-md);
+  transition: background-color 160ms ease;
+}
+.dashboard-menu-item:hover {
+  background: var(--color-surface);
+}
+.dashboard-menu-item:active {
+  background: var(--color-border);
+}
+.dashboard-menu-item:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: -2px;
+}
+/* Desktop-only selected state — see DashboardMenuItem.tsx's comment on why
+   `active` doesn't need a distinct mobile treatment. */
+.dashboard-menu-item.is-active {
+  background: var(--color-surface);
+}
+.dashboard-menu-item.is-active .dashboard-menu-item__icon {
+  color: var(--color-primary-deep);
+  background: var(--color-bg);
+}
+.dashboard-menu-item.is-active .dashboard-menu-item__label {
+  color: var(--color-primary-deep);
+}
+
+.dashboard-menu-item__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.dashboard-menu-item__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dashboard-menu-item__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-menu-item__label {
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.dashboard-menu-item__subtitle {
+  font-size: var(--text-label-size);
+  color: var(--color-muted);
+}
+
+.dashboard-menu-item__chevron {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-muted);
+}

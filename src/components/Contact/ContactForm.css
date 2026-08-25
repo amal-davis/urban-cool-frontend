@@ -1,0 +1,79 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form-field label {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 0.75rem var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  transition: border-color 160ms ease;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 128px;
+}
+
+.form-field input:focus-visible,
+.form-field textarea:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 1px;
+  border-color: var(--color-primary-deep);
+}
+
+/* Reuses Dispatch Red — DESIGN.md's own reserved use for it includes
+   "cancellation, error states", so this is the documented error color, not
+   a new one introduced for this form. */
+.form-field.has-error input,
+.form-field.has-error textarea {
+  border-color: var(--color-accent);
+}
+
+.form-field__error {
+  font-size: var(--text-label-size);
+  color: var(--color-accent-deep);
+}
+
+.contact-form__submit {
+  align-self: flex-start;
+}
+
+.contact-form__notice {
+  font-size: var(--text-label-size);
+  line-height: 1.5;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin: 0;
+}
+.contact-form__notice--error {
+  color: var(--color-accent-deep);
+  background: color-mix(in oklch, var(--color-accent) 8%, var(--color-bg));
+}
+
+@media (max-width: 600px) {
+  .contact-form__submit {
+    align-self: stretch;
+  }
+}

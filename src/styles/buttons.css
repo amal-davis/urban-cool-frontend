@@ -1,0 +1,107 @@
+/*
+ * Shared button system. Reused across the navbar, mobile menu, and hero CTA
+ * so every surface draws from the same vocabulary (see DESIGN.md §5 Do's).
+ *
+ * Fill colors deliberately use the "-deep" tokens, not the base primary/accent,
+ * for --btn-primary: white text on base --color-primary only reaches ~3.85:1
+ * contrast, which clears AA for large text (≥18.66px bold / 24px regular) but
+ * not for button-scale text (14-16px). --color-primary-deep reaches 6.91:1 and
+ * is safe at any size. --color-accent already reaches 6.41:1 on its own, so it
+ * doesn't need the deep variant at rest — only on hover, for a visible state
+ * change.
+ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+}
+
+/* Primary — Signal Blue. The default action (e.g. Sign Up). */
+.btn--primary {
+  background: var(--color-primary-deep);
+  color: #fff;
+}
+.btn--primary:hover:not(:disabled) {
+  background: color-mix(in oklch, var(--color-primary-deep) 85%, black);
+}
+.btn--primary:active:not(:disabled) {
+  background: color-mix(in oklch, var(--color-primary-deep) 72%, black);
+}
+
+/* Ghost — outline only. Secondary action (e.g. Log In). */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-border);
+}
+.btn--ghost:hover:not(:disabled) {
+  background: var(--color-surface);
+  border-color: var(--color-muted);
+}
+.btn--ghost:active:not(:disabled) {
+  background: var(--color-border);
+}
+
+/* Accent — Dispatch Red. Reserved for the single most urgent action on a
+   screen (see DESIGN.md's Two-Signal Rule). Do not use for routine actions. */
+.btn--accent {
+  background: var(--color-accent);
+  color: #fff;
+}
+.btn--accent:hover:not(:disabled) {
+  background: var(--color-accent-deep);
+}
+.btn--accent:active:not(:disabled) {
+  background: color-mix(in oklch, var(--color-accent-deep) 85%, black);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* Icon-only button — account glyph, hamburger, close. Visual size stays
+   small; the hit area still clears the 44px touch-target minimum via padding. */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.icon-button:hover {
+  background: var(--color-surface);
+  color: var(--color-primary-deep);
+}
+.icon-button:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+}

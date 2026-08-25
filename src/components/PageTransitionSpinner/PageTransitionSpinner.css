@@ -1,0 +1,43 @@
+.page-transition-spinner-wrap {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Same tier as the top bar this replaced — transient, top-most, self-
+     dismissing, which is exactly what a toast is semantically. */
+  z-index: var(--z-toast);
+  /* Never blocks interaction with the new page underneath, even if the
+     timing runs a hair long. */
+  pointer-events: none;
+}
+
+/* A floating white badge behind the ring — without it, the spinner's own
+   track color could wash out against a colored section underneath (e.g.
+   FinalCTA's blue band). --shadow-float is DESIGN.md's token reserved for
+   exactly this: floating, non-resting UI, not page content. */
+.page-transition-spinner-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-float);
+}
+
+.page-transition-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--color-surface);
+  border-top-color: var(--color-primary-deep);
+  border-radius: var(--radius-full);
+  animation: page-transition-spin 700ms linear infinite;
+}
+
+@keyframes page-transition-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

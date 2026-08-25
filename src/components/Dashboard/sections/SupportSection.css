@@ -1,0 +1,60 @@
+.faq-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.faq-item + .faq-item {
+  border-top: 1px solid var(--color-border);
+}
+
+.faq-item__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-sm) 0;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.faq-item__question:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.faq-item__chevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--color-muted);
+  transform: rotate(90deg);
+  transition: transform 160ms ease;
+}
+.faq-item__chevron.is-open {
+  transform: rotate(-90deg);
+}
+
+.faq-item__answer {
+  font-size: var(--text-body-size);
+  line-height: 1.55;
+  color: var(--color-muted);
+  margin: 0 0 var(--space-md);
+}
+
+/* Reuses DashboardMenuItem for its three rows — this just adds the same
+   row-divider language DashboardMenu.css uses, since these rows sit inside
+   a section-card instead of the sidebar's own <nav>. */
+.support-options .dashboard-menu-item {
+  padding-inline: 0;
+}
+.support-options .dashboard-menu-item + .dashboard-menu-item {
+  border-top: 1px solid var(--color-border);
+  border-radius: 0;
+}

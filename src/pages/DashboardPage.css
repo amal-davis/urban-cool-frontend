@@ -1,0 +1,13 @@
+.dashboard-page {
+  padding-block: var(--space-2xl);
+}
+
+/* Tighter on mobile than a typical marketing page section — once a row is
+   selected, .dashboard__content itself goes full-bleed (UserDashboard.css),
+   so the page shouldn't add a large gap around it either; this should read
+   close to a native app screen, not a page with a section on it. */
+@media (max-width: 767px) {
+  .dashboard-page {
+    padding-block: var(--space-md);
+  }
+}

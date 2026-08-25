@@ -1,0 +1,144 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  /* Reuses the sticky tier from the z-index scale in tokens.css — defined
+     up front for exactly this, unused until now. Sits below the mobile
+     menu's backdrop/panel (1200/1300), so opening the menu still layers
+     correctly above the header. */
+  z-index: var(--z-sticky);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  /* Tighter than --space-md on purpose — the logo grew to fill more of the
+     bar's height (see .brand__logo); keeping the bar's total height close
+     to what it was means the logo reads bigger without the whole header
+     ballooning. */
+  padding-block: var(--space-sm);
+}
+
+/* Brand */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.brand__logo {
+  height: 68px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Desktop nav */
+
+.primary-nav {
+  margin-inline: auto;
+}
+.primary-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.primary-nav__link {
+  position: relative;
+  display: inline-block;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: none;
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-xs);
+  transition: color 160ms ease;
+}
+.primary-nav__link:hover {
+  color: var(--color-primary-deep);
+}
+.primary-nav__link:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+.primary-nav__link.is-active {
+  color: var(--color-primary-deep);
+}
+.primary-nav__link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--color-primary-deep);
+  border-radius: var(--radius-full);
+}
+
+/* Header actions (desktop) */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+/* Mobile toggle — hidden on desktop */
+
+.menu-toggle {
+  display: none;
+  border: none;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+}
+.menu-toggle:hover {
+  background: var(--color-surface);
+}
+.menu-toggle:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .primary-nav,
+  .header-actions {
+    display: none;
+  }
+  .menu-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+  /* Centered in the bar, not just "left of the leftover space" — absolute
+     + transform against .site-header__bar's own relative positioning,
+     scoped to mobile only so desktop's left-aligned logo is untouched. The
+     hamburger stays in normal flow on the right, so it can't overlap a
+     centered logo at any width this breakpoint covers. */
+  .brand {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  /* Pulling .brand out of flow (above) means the bar's own height would
+     otherwise be set only by the much-shorter hamburger icon — too short
+     for the 68px logo, which would then overflow above/below the header's
+     background and border. This keeps the bar tall enough to actually
+     contain it. */
+  .site-header__bar {
+    min-height: calc(68px + var(--space-sm) * 2);
+  }
+}

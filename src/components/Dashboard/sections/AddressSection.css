@@ -1,0 +1,126 @@
+.address-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+.address-card__label {
+  font-size: var(--text-title-size);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.address-card__default {
+  padding: 0.125rem var(--space-sm);
+  border-radius: var(--radius-full);
+  background: color-mix(in oklch, var(--color-primary) 12%, var(--color-bg));
+  color: var(--color-primary-deep);
+  font-size: var(--text-label-size);
+  font-weight: 700;
+}
+
+.address-card__name {
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0;
+}
+.address-card__lines {
+  font-size: var(--text-body-size);
+  line-height: 1.55;
+  color: var(--color-muted);
+  margin: var(--space-xs) 0 var(--space-md);
+}
+
+.address-card__actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+.address-card__actions .btn svg,
+.address-section__add svg {
+  width: 16px;
+  height: 16px;
+}
+
+.address-card__confirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: color-mix(in oklch, var(--color-accent) 8%, var(--color-bg));
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-accent-deep);
+}
+.address-card__confirm-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.address-section__add {
+  gap: var(--space-xs);
+}
+
+.address-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.address-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+.address-form__row--single {
+  grid-template-columns: 1fr;
+}
+
+/* Same field vocabulary as AuthForm.css/ContactForm.css/EditProfileModal.css
+   — kept as its own local copy per this project's established convention. */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.form-field label {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.form-field input {
+  width: 100%;
+  padding: 0.75rem var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  transition: border-color 160ms ease;
+}
+.form-field input:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 1px;
+  border-color: var(--color-primary-deep);
+}
+
+.address-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+@media (max-width: 480px) {
+  .address-form__row {
+    grid-template-columns: 1fr;
+  }
+  .address-form__actions {
+    flex-direction: column-reverse;
+  }
+  .address-form__actions .btn {
+    width: 100%;
+  }
+}

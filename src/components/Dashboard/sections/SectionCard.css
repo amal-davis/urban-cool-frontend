@@ -1,0 +1,99 @@
+/* Shared vocabulary for every dashboard content section (ProfileOverview,
+   Address, Payment, Support, About, Privacy) — same "siblings in one
+   feature share a CSS file" precedent as Auth/AuthForm.css in this
+   codebase, not a cross-page import. */
+
+.section-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+.section-card + .section-card {
+  margin-top: var(--space-lg);
+}
+
+.section-heading {
+  font-size: var(--text-title-size);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-md);
+}
+
+.section-text {
+  font-size: var(--text-body-size);
+  line-height: 1.6;
+  color: var(--color-muted);
+  margin: 0 0 var(--space-md);
+}
+.section-text:last-child {
+  margin-bottom: 0;
+}
+
+.detail-list {
+  display: flex;
+  flex-direction: column;
+}
+.detail-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: var(--space-sm);
+}
+.detail-row + .detail-row {
+  border-top: 1px solid var(--color-border);
+}
+.detail-row__label {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+.detail-row__value {
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-ink);
+  text-align: right;
+}
+
+/* ProfileOverviewSection's inline verified mark next to a detail-row value
+   — same "icon paired with text, not color alone" idiom as
+   ProfileHeader.css's .profile-summary__verified, just inline instead of
+   stacked since it's sitting at the end of a value line here. */
+.detail-row__verified-icon {
+  width: 15px;
+  height: 15px;
+  color: var(--color-success);
+  vertical-align: -2px;
+}
+
+.section-card__action {
+  margin-top: var(--space-lg);
+  gap: var(--space-xs);
+}
+.section-card__action svg {
+  width: 16px;
+  height: 16px;
+}
+
+.section-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+  padding: var(--space-2xl) var(--space-lg);
+  color: var(--color-muted);
+}
+.section-empty svg {
+  width: 40px;
+  height: 40px;
+  color: var(--color-border);
+}
+
+@media (max-width: 480px) {
+  .section-card {
+    padding: var(--space-md);
+  }
+}

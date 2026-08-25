@@ -1,0 +1,316 @@
+/* Service Detail page (/service/:serviceId) — one reusable layout driven by
+   whichever service's data matches the route param. Mobile is a single
+   stacked column (image → name → description → included → price → CTA,
+   per the supplied mobile reference); desktop becomes a genuine two-column
+   layout at 900px, the same breakpoint the Services page's own detail
+   cards already stack at (ServiceDetail.css), not a single column just
+   stretched wider. No fixed viewport height/overflow anywhere here — the
+   page scrolls like any other. */
+
+.service-detail {
+  background: var(--color-bg);
+  padding-block: var(--space-2xl) var(--space-3xl);
+}
+
+.service-detail--not-found {
+  padding-block: var(--space-3xl);
+}
+
+/* ---- Top bar: Back (left) + Favorite (right) ---- */
+
+.service-detail__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.service-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-sm);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.service-detail__back svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.service-detail__back:hover {
+  background: var(--color-surface);
+  color: var(--color-primary-deep);
+}
+.service-detail__back:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+}
+
+/* Kept visually subtle at rest (muted, outline heart) — no favorites
+   system exists elsewhere in this project, so this stays a lightweight,
+   frontend-only affordance rather than something that reads as a fully
+   wired feature. Fills in with Dispatch Red only once toggled on.
+   Selector doubles up `.icon-button` on purpose — matches its specificity
+   plus one, so this reliably wins over icon-button's own color rules
+   regardless of CSS load order between the global buttons.css and this
+   page's lazy-loaded chunk. */
+.icon-button.service-detail__favorite {
+  color: var(--color-muted);
+}
+.icon-button.service-detail__favorite[aria-pressed='true'] {
+  color: var(--color-accent);
+}
+
+/* ---- Two-column grid ---- */
+
+.service-detail__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.service-detail__image-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: var(--space-xl);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  /* Large desktop screens: keep the panel from growing arbitrarily wide
+     alongside a --container-max of 1280px — matches "don't stretch the
+     mobile layout across the screen" from the brief. */
+  max-width: 560px;
+}
+
+.service-detail__image-icon {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  color: var(--color-primary);
+}
+
+/* Real photo path (once service.imageUrl is populated) — contain, not
+   cover, so the appliance is never cropped, and rounded to match the
+   illustration panel it replaces. */
+.service-detail__image-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.service-detail__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.service-detail__eyebrow {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.service-detail__name {
+  font-size: var(--text-headline-size);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.service-detail__description {
+  font-size: var(--text-body-size);
+  line-height: 1.55;
+  color: var(--color-muted);
+  max-width: 48ch;
+  margin: 0;
+}
+
+/* ---- Services Include ---- */
+
+.service-detail__included {
+  width: 100%;
+  margin-top: var(--space-xs);
+}
+
+.service-detail__section-heading {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: var(--space-sm) 0 0;
+}
+
+.service-detail__included-list {
+  list-style: none;
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+}
+.service-detail__included-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  font-size: var(--text-body-size);
+  color: var(--color-ink);
+}
+.service-detail__included-list svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--color-success);
+}
+
+/* ---- Estimated price ---- */
+
+.service-detail__price {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.service-detail__price-label {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.service-detail__price-value {
+  font-size: var(--text-headline-size);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+/* Deliberately smaller/quieter than the price itself — present, always
+   readable, never competing with the number for attention. Never omitted:
+   this is the line that keeps "Starting From ₹499" from reading as a
+   fixed, final price. */
+.service-detail__price-disclaimer {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-muted);
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* ---- Book Now CTA ---- */
+
+/* Full-width on mobile (see the 767px block below); a normal, non-stretched
+   button on tablet/desktop, positioned after pricing per the brief. Not
+   sticky/fixed: MobileBottomNav already owns the fixed bottom position on
+   mobile (see MobileBottomNav.css + index.css's #page-root padding) —
+   stacking a second fixed bar there would conflict with it, not complement
+   it, so this stays in normal flow like every other CTA in the codebase. */
+.service-detail__cta {
+  margin-top: var(--space-sm);
+  min-width: 220px;
+}
+
+/* ---- Service Not Found ---- */
+
+.service-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  max-width: 440px;
+  margin: 0 auto;
+  padding-block: var(--space-2xl);
+  text-align: center;
+}
+
+.service-not-found__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+.service-not-found__badge svg {
+  width: 28px;
+  height: 28px;
+}
+
+.service-not-found__heading {
+  font-size: var(--text-headline-size);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.service-not-found__description {
+  font-size: var(--text-body-size);
+  line-height: 1.55;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+/* ---- Responsive ---- */
+
+/* Tablet and below: stack image above content, same threshold the Services
+   page's own detail cards use. */
+@media (max-width: 900px) {
+  .service-detail__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .service-detail__image-panel {
+    max-width: none;
+    aspect-ratio: 4 / 3;
+    padding: var(--space-lg);
+  }
+}
+
+/* Mobile: full-width CTA, tighter section rhythm. Matches the 767px
+   boundary MobileBottomNav/Footer already switch on for "mobile view". */
+@media (max-width: 767px) {
+  .service-detail {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+  .service-detail__cta {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-detail__image-panel {
+    aspect-ratio: 1;
+    padding: var(--space-lg);
+  }
+  .service-detail__image-icon {
+    max-width: 220px;
+  }
+  .service-detail__grid {
+    gap: var(--space-md);
+  }
+}

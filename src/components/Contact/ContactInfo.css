@@ -1,0 +1,120 @@
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.contact-info__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.contact-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+/* --color-bg (white), not --color-surface: this component now renders
+   inside a surface-tinted card (ContactPage.css's .contact-main__info) —
+   using the same tint here would make the badge disappear into it. White
+   floating on the tinted card matches the same layered look used for the
+   hero illustration backdrop. */
+.contact-info__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  color: var(--color-primary);
+}
+.contact-info__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.contact-info__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 0.5rem;
+}
+
+.contact-info__label {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+
+.contact-info__value {
+  font-size: var(--text-title-size);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.contact-info__value--link {
+  text-decoration: none;
+}
+.contact-info__value--link:hover {
+  color: var(--color-primary-deep);
+  text-decoration: underline;
+}
+.contact-info__value--link:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Same reasoning as .contact-info__icon above: white, not surface-tint,
+   since the parent card is already surface-tinted. */
+.contact-service-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding: var(--space-lg);
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+}
+
+.contact-service-area__label {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+.contact-service-area__label--spaced {
+  margin-top: var(--space-xs);
+}
+
+.contact-service-area__value {
+  font-size: var(--text-title-size);
+  font-weight: 600;
+  color: var(--color-primary-deep);
+}
+
+.contact-service-area__description {
+  font-size: var(--text-body-size);
+  line-height: 1.5;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.contact-service-area__services {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--text-body-size);
+  color: var(--color-ink);
+}

@@ -1,0 +1,14 @@
+.login-page {
+  padding-block: var(--space-3xl);
+}
+
+.login-page__container {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .login-page {
+    padding-block: var(--space-xl);
+  }
+}

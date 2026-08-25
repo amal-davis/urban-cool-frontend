@@ -1,0 +1,56 @@
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--space-xl) + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: var(--z-toast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  max-width: min(360px, calc(100vw - var(--space-lg) * 2));
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-ink);
+  color: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float);
+  font-size: var(--text-label-size);
+  font-weight: 600;
+  animation: toast-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}
+
+.toast__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-success);
+}
+
+.toast__message {
+  line-height: 1.4;
+}
+
+/* Sits above the mobile bottom nav (fixed, --z-sticky) instead of behind
+   it — reuses the same reserved-space token the page body's own padding
+   already accounts for (index.css), so this lines up with real content's
+   bottom edge instead of a guessed offset. */
+@media (max-width: 767px) {
+  .toast {
+    bottom: calc(var(--mobile-bottom-nav-height) + env(safe-area-inset-bottom) + var(--space-md));
+  }
+}

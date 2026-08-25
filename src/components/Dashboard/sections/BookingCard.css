@@ -1,0 +1,105 @@
+.booking-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+.booking-card + .booking-card {
+  margin-top: var(--space-md);
+}
+
+.booking-card__top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.booking-card__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+.booking-card__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.booking-card__heading {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.booking-card__service {
+  font-size: var(--text-title-size);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.booking-card__ref {
+  font-size: var(--text-label-size);
+  color: var(--color-muted);
+}
+
+.booking-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+}
+.booking-card__meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--text-body-size);
+  color: var(--color-ink);
+}
+.booking-card__meta-item svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--color-muted);
+  margin-top: 1px;
+}
+
+.booking-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+.booking-card__price {
+  font-size: var(--text-title-size);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.booking-card__actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+@media (max-width: 480px) {
+  .booking-card {
+    padding: var(--space-md);
+  }
+  .booking-card__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .booking-card__actions {
+    flex-direction: column;
+  }
+  .booking-card__actions .btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,48 @@
+.services-overview {
+  background: var(--color-bg);
+  padding-block: var(--space-3xl);
+}
+
+.services-overview__intro {
+  max-width: 60ch;
+  margin: 0 auto var(--space-xl);
+  text-align: center;
+}
+
+.services-overview__heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(var(--text-title-size), 4vw, var(--text-headline-size));
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-sm);
+}
+
+.services-overview__description {
+  font-size: var(--text-body-size);
+  line-height: 1.55;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+/* One card per service, stacked — each ServiceDetail card is already a
+   complete unit (image, description, help-with list, CTA), so this is just
+   the vertical rhythm between them. */
+.services-overview__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+@media (max-width: 600px) {
+  .services-overview {
+    padding-block: var(--space-xl);
+  }
+  .services-overview__intro {
+    margin-bottom: var(--space-lg);
+  }
+  .services-overview__list {
+    gap: var(--space-lg);
+  }
+}

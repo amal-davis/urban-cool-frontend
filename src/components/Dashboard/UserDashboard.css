@@ -1,0 +1,120 @@
+/* Desktop: two-column sidebar + content, both always visible/mounted (see
+   UserDashboard.tsx's comment on why is-hidden-on-mobile only ever takes
+   effect below the breakpoint). Same 900px threshold ContactPage.css and
+   ServiceDetail.css already use for their own two-column collapses — this
+   isn't a new number, it's this project's established "desktop content
+   needs real room" cutoff. */
+.dashboard {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-xl);
+}
+
+.dashboard__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  /* Stays in view while a long content panel (e.g. My Bookings) scrolls
+     past it — a standard dashboard-sidebar behavior, and harmless on the
+     shorter panels since it just never needs to move. */
+  position: sticky;
+  top: var(--space-lg);
+}
+
+.dashboard__content {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  min-width: 0;
+}
+
+.dashboard__content-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.dashboard__content-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-title-size);
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* Desktop never needs "Back" — the sidebar is already on-screen next to
+   the content panel, so there's nowhere to go back to. */
+.dashboard__back {
+  display: none;
+}
+
+/* Below 900px: single column. Whichever of sidebar/content carries
+   is-hidden-on-mobile (set by UserDashboard.tsx based on activeSection)
+   disappears, so exactly one of "the list" or "a section's detail view" is
+   ever on screen — the mobile-app list/detail pattern the reference shows,
+   not a squeezed desktop layout. */
+@media (max-width: 899px) {
+  .dashboard {
+    display: block;
+  }
+  .dashboard__sidebar {
+    position: static;
+  }
+  .dashboard__sidebar.is-hidden-on-mobile,
+  .dashboard__content.is-hidden-on-mobile {
+    display: none;
+  }
+
+  .dashboard__content {
+    /* Full-bleed, not a card floating in a page — this is meant to read as
+       its own screen once a row is tapped, matching the reference. */
+    border: none;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .dashboard__back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: none;
+    border: none;
+    padding: var(--space-xs) 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-label-size);
+    font-weight: 700;
+    color: var(--color-muted);
+    cursor: pointer;
+  }
+  .dashboard__back:hover {
+    color: var(--color-primary-deep);
+  }
+  .dashboard__back:focus-visible {
+    outline: 2px solid var(--color-primary-deep);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  .dashboard__back svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Horizontal padding is deliberately 0 here — DashboardPage wraps this
+     whole component in the standard .container, which already supplies the
+     side gutters; adding more here would double it up. */
+  .dashboard__content-header {
+    padding: var(--space-md) 0 0;
+  }
+  .dashboard__content-body {
+    padding: var(--space-md) 0 var(--space-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    gap: var(--space-md);
+  }
+}

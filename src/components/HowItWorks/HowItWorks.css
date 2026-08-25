@@ -1,0 +1,131 @@
+.how-it-works {
+  background: var(--color-bg);
+  padding-block: var(--space-2xl);
+}
+
+.how-it-works__intro {
+  max-width: 52ch;
+  margin: 0 auto var(--space-xl);
+  text-align: center;
+}
+
+.how-it-works__heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(var(--text-title-size), 4vw, var(--text-headline-size));
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-sm);
+}
+
+.how-it-works__description {
+  font-size: var(--text-body-size);
+  line-height: 1.55;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.how-it-works__steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The connecting line — desktop only. Positioned at the numbered circles'
+   vertical center, behind them (z-index below .step__number, which sits on
+   an opaque background and visually "breaks" the line at each step). */
+.how-it-works__steps::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: var(--color-border);
+  z-index: 0;
+}
+
+.step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xs);
+}
+
+/* Filled, not outlined — a thin bordered circle on a white section reads
+   weak as the anchor for the whole layout. This is the one visual beat
+   readers scan top-to-bottom, so it earns real weight. */
+.step__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-deep);
+  color: #fff;
+  font-size: var(--text-headline-size);
+  font-weight: 700;
+}
+
+.step__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  margin-top: var(--space-xs);
+}
+.step__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.step__title {
+  font-size: var(--text-title-size);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: var(--space-xs) 0 0;
+}
+
+.step__description {
+  font-size: var(--text-label-size);
+  line-height: 1.5;
+  color: var(--color-muted);
+  max-width: 22ch;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .how-it-works__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--space-xl);
+  }
+  .how-it-works__steps::before {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .how-it-works {
+    padding-block: var(--space-xl);
+  }
+  .how-it-works__intro {
+    margin-bottom: var(--space-lg);
+  }
+  .how-it-works__steps {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .step__title,
+  .step__description {
+    max-width: 28ch;
+  }
+}

@@ -1,0 +1,75 @@
+.contact-main {
+  background: var(--color-bg);
+  padding-block: var(--space-3xl);
+}
+
+.contact-main__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: stretch;
+}
+
+/* Gives the info column the same visual weight as the form card next to it
+   — without this, the plain icon+text list reads noticeably thinner than a
+   bordered card, even though the content itself is complete. */
+.contact-main__info {
+  padding: var(--space-xl);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+
+.contact-main__form-card {
+  padding: var(--space-xl);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.contact-main__form-heading {
+  font-size: var(--text-title-size);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-lg);
+}
+
+.contact-map {
+  background: var(--color-bg);
+  padding-bottom: var(--space-3xl);
+}
+
+.contact-map__heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(var(--text-title-size), 4vw, var(--text-headline-size));
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-lg);
+}
+
+.contact-map__card {
+  padding: var(--space-sm);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 900px) {
+  .contact-main__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-main {
+    padding-block: var(--space-xl);
+  }
+  .contact-main__info,
+  .contact-main__form-card {
+    padding: var(--space-lg);
+  }
+  .contact-map {
+    padding-bottom: var(--space-xl);
+  }
+}

@@ -1,0 +1,23 @@
+/* One cohesive bordered block, not floating rows — same resting-card
+   language as every other panel in this system (DESIGN.md's Flat-by-
+   Default Rule: border + Paper/Panel step, no shadow). */
+.dashboard-menu {
+  display: block;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.dashboard-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Subtle separators between rows, not a border around each one — a bordered
+   row-per-row look reads as "generic browser buttons," which the row design
+   spec explicitly calls out to avoid. */
+.dashboard-menu__item + .dashboard-menu__item {
+  border-top: 1px solid var(--color-border);
+}

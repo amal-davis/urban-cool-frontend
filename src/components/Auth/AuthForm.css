@@ -1,0 +1,217 @@
+/* Shared vocabulary for all three auth steps (MobileNumberStep, OtpStep,
+   ProfileStep) — one file since they're the same visual "form inside a
+   card" language, just with different fields. */
+
+.auth-form__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: var(--space-xs) 0;
+  margin-bottom: var(--space-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+.auth-form__back:hover {
+  color: var(--color-primary-deep);
+}
+.auth-form__back:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+.auth-form__back svg {
+  width: 18px;
+  height: 18px;
+}
+
+.auth-form__heading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-headline-size);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-sm);
+}
+
+.auth-form__subtext {
+  font-size: var(--text-body-size);
+  line-height: 1.5;
+  color: var(--color-muted);
+  margin: 0 0 var(--space-lg);
+}
+.auth-form__subtext strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.auth-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Field wrapper — same vocabulary as ContactForm.css's .form-field, kept as
+   a separate local definition rather than a cross-page import (each
+   component owns its own CSS in this project; see e.g. Reveal.css). */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.form-field label {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.form-field__error {
+  font-size: var(--text-label-size);
+  color: var(--color-accent-deep);
+}
+
+/* Phone field — fixed +91 prefix beside the number input, styled as one
+   continuous pill (border/radius/focus live on the wrapper, not the input)
+   so it reads as a single "+91 | 9876543210" field. */
+.phone-input {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  overflow: hidden;
+  transition: border-color 160ms ease;
+}
+.phone-input:focus-within {
+  border-color: var(--color-primary-deep);
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 1px;
+}
+.form-field.has-error .phone-input {
+  border-color: var(--color-accent);
+}
+.phone-input__prefix {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--space-md);
+  font-weight: 600;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+}
+.phone-input input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 0.75rem var(--space-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  color: var(--color-ink);
+  background: transparent;
+}
+
+.auth-form__notice {
+  font-size: var(--text-label-size);
+  line-height: 1.5;
+  margin: 0;
+}
+.auth-form__notice--error {
+  color: var(--color-accent-deep);
+}
+
+.auth-resend {
+  text-align: center;
+  font-size: var(--text-label-size);
+  color: var(--color-muted);
+}
+.auth-resend__link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-primary-deep);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.auth-resend__link:hover:not(:disabled) {
+  color: var(--color-primary);
+}
+.auth-resend__link:disabled {
+  color: var(--color-muted);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+.auth-resend__link:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ProfileStep's read-only "verified mobile number" confirmation — the same
+   Panel-step-not-shadow language as a resting card (DESIGN.md's Flat-by-
+   Default Rule), with Confirmed Green making the verified state legible
+   without relying on the icon alone. */
+.verified-phone {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: var(--space-sm);
+  row-gap: var(--space-xs);
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+}
+.verified-phone__label {
+  flex-basis: 100%;
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-muted);
+}
+.verified-phone__value {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.verified-phone__icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-success);
+  flex-shrink: 0;
+}
+.verified-phone__change {
+  margin-left: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-primary-deep);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.verified-phone__change:hover {
+  color: var(--color-primary);
+}
+.verified-phone__change:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 480px) {
+  .auth-form__heading {
+    font-size: 1.5rem;
+  }
+}

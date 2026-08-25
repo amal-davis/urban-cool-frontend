@@ -1,0 +1,16 @@
+/* Mirrors LoginPage.css exactly — same page shell for both auth pages. */
+
+.signup-page {
+  padding-block: var(--space-3xl);
+}
+
+.signup-page__container {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .signup-page {
+    padding-block: var(--space-xl);
+  }
+}

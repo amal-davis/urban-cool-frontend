@@ -1,0 +1,39 @@
+/* Mirrors LoginCard.css exactly — same "form inside a card" shell, kept as
+   its own file per this project's convention of each component owning its
+   own CSS (see AuthForm.css's own comment) rather than importing across
+   component boundaries. */
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: var(--space-lg);
+  }
+}
+
+/* Smooth entrance for whichever step is currently mounted. The three steps
+   are never more than one in the DOM at once (see SignupCard.tsx), so this
+   animates the incoming step in rather than crossfading between two live
+   forms. index.css's global prefers-reduced-motion rule already neutralizes
+   this (animation-duration: 0.01ms) — no separate override needed here. */
+.auth-step {
+  animation: auth-step-in 220ms ease;
+}
+
+@keyframes auth-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,27 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem var(--space-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.status-badge--upcoming {
+  background: color-mix(in oklch, var(--color-primary) 12%, var(--color-bg));
+  color: var(--color-primary-deep);
+}
+.status-badge--in-progress {
+  background: color-mix(in oklch, var(--color-warning) 25%, var(--color-bg));
+  color: var(--color-ink);
+}
+.status-badge--completed {
+  background: color-mix(in oklch, var(--color-success) 14%, var(--color-bg));
+  color: var(--color-success);
+}
+.status-badge--cancelled {
+  background: color-mix(in oklch, var(--color-accent) 10%, var(--color-bg));
+  color: var(--color-accent-deep);
+}

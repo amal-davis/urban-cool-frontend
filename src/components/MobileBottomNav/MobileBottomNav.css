@@ -1,0 +1,84 @@
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Same tier as the sticky header — they never overlap spatially (top vs
+     bottom chrome), and both sit below the mobile slide-in menu's backdrop/
+     panel (1200/1300), so opening that menu still layers above this. */
+  z-index: var(--z-sticky);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  /* Rounded top corners only — it's attached to the viewport's bottom edge,
+     rounding the bottom corners would just look like a mistake. */
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: var(--shadow-float);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Below this, the header is already in hamburger mode (Navbar.css's 900px
+   breakpoint) — but a bottom tab bar is a phone-native pattern that doesn't
+   belong on a tablet even once it's collapsed to a hamburger. That's a real
+   UX distinction, not an arbitrary extra number, so this intentionally
+   doesn't reuse 900px (or this project's other mobile breakpoint, 600px,
+   introduced for phone-specific compaction elsewhere) — it's a third,
+   deliberately different threshold. */
+@media (max-width: 767px) {
+  .mobile-bottom-nav {
+    display: block;
+  }
+}
+
+.mobile-bottom-nav__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  height: var(--mobile-bottom-nav-height);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-bottom-nav__item {
+  display: flex;
+}
+
+/* The whole item is the tap target (icon + label together), not just the
+   icon — each cell is 1/4 of the viewport width and the bar's full height,
+   comfortably over the 44x44px minimum at any tested width. */
+.mobile-bottom-nav__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  background: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  transition: color 160ms ease, background-color 160ms ease;
+}
+.mobile-bottom-nav__link:active {
+  background: var(--color-surface);
+}
+.mobile-bottom-nav__link:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: -2px;
+}
+.mobile-bottom-nav__link.is-active {
+  color: var(--color-primary-deep);
+}
+
+.mobile-bottom-nav__icon {
+  width: 22px;
+  height: 22px;
+}
+
+.mobile-bottom-nav__label {
+  font-size: var(--text-label-size);
+  font-weight: 600;
+  line-height: 1;
+}

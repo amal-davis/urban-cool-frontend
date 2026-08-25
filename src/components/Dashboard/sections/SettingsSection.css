@@ -1,0 +1,83 @@
+.settings-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: var(--space-md);
+}
+.settings-row + .settings-row {
+  border-top: 1px solid var(--color-border);
+}
+
+.settings-row__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.settings-row__label {
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.settings-row__description {
+  font-size: var(--text-label-size);
+  color: var(--color-muted);
+}
+
+/* A styled button rather than a native checkbox — this project has no
+   toggle precedent yet, so this is deliberately built from the same
+   primitives (radius-full, border tokens, focus-visible outline) as every
+   other control here instead of relying on browser-default checkbox
+   styling, which would look out of place next to it. */
+.toggle-switch {
+  flex-shrink: 0;
+  position: relative;
+  width: 44px;
+  height: 26px;
+  padding: 2px;
+  background: var(--color-border);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+.toggle-switch.is-on {
+  background: var(--color-primary-deep);
+}
+.toggle-switch:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 2px;
+}
+
+.toggle-switch__thumb {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: #fff;
+  transition: transform 160ms ease;
+}
+.toggle-switch.is-on .toggle-switch__thumb {
+  transform: translateX(18px);
+}
+
+.settings-logout {
+  gap: var(--space-xs);
+  color: var(--color-accent-deep);
+  border-color: var(--color-accent);
+}
+.settings-logout:hover {
+  background: color-mix(in oklch, var(--color-accent) 8%, var(--color-bg));
+  border-color: var(--color-accent-deep);
+}
+.settings-logout svg {
+  width: 16px;
+  height: 16px;
+}

@@ -1,0 +1,536 @@
+/* Service Tracking page (/track/:bookingId). Desktop is a genuine
+   two-column dashboard (~38/62 — see .tracking-page__grid); mobile stacks
+   to one column in the exact order .tracking-page__left's children (booking
+   summary, timeline, technician) then .tracking-page__right's (map) already
+   appear in the DOM — no order-swapping trick needed here, unlike
+   ServiceDetailPage/BookingPage. No fixed viewport height anywhere. */
+
+.tracking-page {
+  background: var(--color-bg);
+  padding-block: var(--space-2xl) var(--space-3xl);
+}
+
+.tracking-page__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.tracking-page__back {
+  padding: var(--space-sm);
+  border-radius: var(--radius-full);
+}
+.tracking-page__back svg {
+  width: 22px;
+  height: 22px;
+}
+
+.tracking-page__heading {
+  font-size: var(--text-headline-size);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* Mobile: compact header with the title genuinely centered and the back
+   button pinned left (matches the supplied reference) — a standard
+   absolute-positioned-icon + centered-text header, not a negative-margin
+   fudge. Desktop keeps the simpler left-aligned flex above, consistent
+   with the plain "back link above content" pattern ServiceDetailPage/
+   BookingPage already use. */
+@media (max-width: 767px) {
+  .tracking-page__header {
+    position: relative;
+    justify-content: center;
+    min-height: 44px;
+  }
+  .tracking-page__back {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .tracking-page__heading {
+    font-size: var(--text-title-size);
+    text-align: center;
+  }
+}
+
+/* ---- Grid ---- */
+
+.tracking-page__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+
+.tracking-page__left,
+.tracking-page__right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 901px) {
+  .tracking-page__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+}
+
+/* ---- Shared section shell ---- */
+
+.tracking-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.tracking-section__heading {
+  font-size: var(--text-title-size);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.tracking-section__hint {
+  font-size: var(--text-body-size);
+  color: var(--color-muted);
+  margin: calc(var(--space-md) * -1) 0 0;
+}
+
+/* ---- Booking summary (compact) ---- */
+
+.booking-summary-card {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+.booking-summary-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+.booking-summary-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+.booking-summary-card__heading {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 140px;
+}
+.booking-summary-card__service {
+  font-size: var(--text-title-size);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0;
+}
+.booking-summary-card__ref {
+  font-size: var(--text-label-size);
+  color: var(--color-muted);
+}
+.booking-summary-card__schedule {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  font-size: var(--text-label-size);
+  color: var(--color-muted);
+}
+.booking-summary-card__schedule span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.booking-summary-card__schedule svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Status timeline ---- */
+
+.status-timeline {
+  position: relative;
+  padding-top: var(--space-xs);
+}
+
+.status-timeline__track {
+  position: absolute;
+  top: 22px;
+  height: 3px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+.status-timeline__track-fill {
+  height: 100%;
+  background: var(--color-primary-deep);
+  border-radius: var(--radius-full);
+  transition: width 240ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-timeline__track-fill {
+    transition: none;
+  }
+}
+
+.status-timeline__steps {
+  position: relative;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  padding: 0;
+}
+
+.status-timeline__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  text-align: center;
+}
+
+.status-timeline__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  border: 3px solid var(--color-border);
+  color: var(--color-muted);
+}
+.status-timeline__dot svg {
+  width: 20px;
+  height: 20px;
+}
+
+.status-timeline__step--completed .status-timeline__dot {
+  background: var(--color-primary-deep);
+  border-color: var(--color-primary-deep);
+  color: #fff;
+}
+.status-timeline__step--active .status-timeline__dot {
+  background: var(--color-bg);
+  border-color: var(--color-primary-deep);
+  color: var(--color-primary-deep);
+}
+.status-timeline__step--active .status-timeline__label {
+  color: var(--color-primary-deep);
+  font-weight: 700;
+}
+
+.status-timeline__label {
+  font-size: var(--text-label-size);
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.status-timeline__message {
+  font-size: var(--text-body-size);
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* ---- Technician ---- */
+
+.technician-pending {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  color: var(--color-muted);
+}
+.technician-pending p {
+  margin: 0;
+}
+.technician-pending__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  color: var(--color-muted);
+}
+.technician-pending__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.technician-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.technician-card__avatar {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: var(--color-primary-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: 3px solid var(--color-surface);
+}
+.technician-card__avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.technician-card__avatar-initials {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.technician-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.technician-card__name {
+  font-size: var(--text-title-size);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.technician-card__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-label-size);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.technician-card__rating svg {
+  width: 15px;
+  height: 15px;
+  color: var(--color-warning);
+}
+.technician-card__review-count {
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.technician-card__call {
+  flex-shrink: 0;
+  background: var(--color-surface);
+  color: var(--color-primary-deep);
+}
+.technician-card__call:hover {
+  background: var(--color-primary-deep);
+  color: #fff;
+}
+
+/* ---- Chat CTA + modal ---- */
+
+.tracking-page__chat-cta {
+  margin: var(--space-lg) 0;
+  display: flex;
+  justify-content: center;
+}
+.tracking-page__chat-cta .btn {
+  gap: var(--space-xs);
+  min-width: 260px;
+}
+.tracking-page__chat-cta svg {
+  width: 20px;
+  height: 20px;
+}
+
+.chat-modal {
+  display: flex;
+  flex-direction: column;
+  height: min(60vh, 420px);
+}
+
+.chat-modal__messages {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0 0 var(--space-md);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.chat-modal__message {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 80%;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.chat-modal__message--customer {
+  align-self: flex-end;
+  background: color-mix(in oklch, var(--color-primary) 12%, var(--color-bg));
+}
+.chat-modal__sender {
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-muted);
+}
+.chat-modal__text {
+  margin: 0;
+  color: var(--color-ink);
+  line-height: 1.4;
+}
+.chat-modal__time {
+  align-self: flex-end;
+  font-size: 0.6875rem;
+  color: var(--color-muted);
+}
+
+.chat-modal__composer {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-md);
+}
+.chat-modal__composer input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+}
+.chat-modal__composer input:focus-visible {
+  outline: 2px solid var(--color-primary-deep);
+  outline-offset: 1px;
+  border-color: var(--color-primary-deep);
+}
+.chat-modal__send {
+  flex-shrink: 0;
+  background: var(--color-primary-deep);
+  color: #fff;
+}
+.chat-modal__send:hover:not(:disabled) {
+  background: color-mix(in oklch, var(--color-primary-deep) 85%, black);
+}
+.chat-modal__send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Completed actions ---- */
+
+.completed-summary {
+  display: flex;
+  gap: var(--space-sm);
+}
+.completed-summary .btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Booking details (address + estimate) ---- */
+
+.booking-details-card {
+  margin-top: var(--space-lg);
+}
+.booking-details-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.booking-details-card__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-label-size);
+  font-weight: 700;
+  color: var(--color-muted);
+}
+.booking-details-card__label svg {
+  width: 16px;
+  height: 16px;
+}
+.booking-details-card__value {
+  color: var(--color-ink);
+}
+.booking-details-card__price {
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.booking-details-card__price-value {
+  font-size: var(--text-title-size);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.booking-details-card__price-note {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-muted);
+  margin: var(--space-xs) 0 0;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 767px) {
+  .tracking-page {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+  .tracking-page__chat-cta .btn {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .tracking-section,
+  .booking-summary-card {
+    padding: var(--space-md);
+  }
+  .status-timeline__dot {
+    width: 36px;
+    height: 36px;
+  }
+  .status-timeline__track {
+    top: 18px;
+  }
+  .status-timeline__label {
+    font-size: 0.6875rem;
+  }
+  .booking-summary-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
